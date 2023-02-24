@@ -1,0 +1,18 @@
+version: '1'
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy:latest
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    environment:
+      - DEFAULT_HOST=porxy.example
+  webserver:
+    build: saschb8/webserver:v1
+    ports:
+     - "8880:3000"
+    environment:
+      - VIRTUAL_HOST=porxy.example  
+  
